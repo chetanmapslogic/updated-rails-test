@@ -1,6 +1,7 @@
 class Api::V1::QuestionsController < ApiController
 	skip_before_filter  :verify_authenticity_token
 	before_action :validate_Api_key!
+	skip_before_action :validate_Api_key!, :only => [:html_dashboard]
 	respond_to :html
 
 	def index
@@ -11,6 +12,14 @@ class Api::V1::QuestionsController < ApiController
                                 :only => [:id, :body] } }, 
                                 :except => [:created_at, :updated_at, :user_id, :private])
 		
+	end
+
+	def html_dashboard
+		@users_count = User.count
+		@question_count = Question.count
+		@answer_count = Answer.count
+		@tenants = Tenant.all
+		# binding.pry
 	end
 
 	private

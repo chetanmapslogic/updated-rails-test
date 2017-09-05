@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+ 
+<div class="container">
+  <h2>Dashboard</h2>
+  
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading">Total Users</div>
+      <div class="panel-body"><%= @users_count%></div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">Total Questions</div>
+      <div class="panel-body"><%= @question_count%></div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">Total Answers</div>
+      <div class="panel-body"><%= @answer_count%></div>
+    </div>
+  </div>
+  <h2>Tenant API request counts</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Count</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tenants.each do |tenant|%>
+        <tr>
+          <td><%= tenant.id %></td>
+          <td><%= tenant.name %></td>
+          <td><%= tenant.activity_logs.count %> </td>
+        </tr>
+      <% end %>
+      
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

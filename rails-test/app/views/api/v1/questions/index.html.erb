@@ -39,7 +39,14 @@
         </div>
       </div>
     </div>
-  </div>
+  
+
+  <% if @data == "[]"%>
+    <h1>
+      <strong>No Matching Entry To Query</strong>
+    </h1>
+  <% end %>
+</div>
 </section>
 <script type="text/javascript">
   function tableCreator(e, t) {

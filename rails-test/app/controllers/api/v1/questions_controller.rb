@@ -6,8 +6,9 @@ class Api::V1::QuestionsController < ApiController
 
 	def index
 		return head :forbidden unless has_valid_api_key?
+		questions = Question.where("title LIKE ?","%#{params[:query]}%")
 		record_activity("Created new recoord")
-		@data = Question.all.to_json(:include => {:user => {:only => [:id, :name] }, 
+		@data = questions.all.to_json(:include => {:user => {:only => [:id, :name] }, 
                                 :answers => {:include => { :user => {:only => [:id, :name] } },
                                 :only => [:id, :body] } }, 
                                 :except => [:created_at, :updated_at, :user_id, :private])
@@ -19,7 +20,6 @@ class Api::V1::QuestionsController < ApiController
 		@question_count = Question.count
 		@answer_count = Answer.count
 		@tenants = Tenant.all
-		# binding.pry
 	end
 
 	private

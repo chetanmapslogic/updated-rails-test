@@ -1,0 +1,117 @@
+<head>
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+</head>
+<section class="content-header">
+  <h1>
+    <strong>Quetions</strong>
+  </h1>
+  <ol class="breadcrumb">
+    <li>
+      <%= link_to root_path do %>
+        Home
+      <% end %>
+    </li>
+  </ol>
+</section>
+<section class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box box-primary">
+        <div class="box-header">
+          <div class="col-md-5"></div>
+          <div class="col-md-4"></div>
+          <div class="col-md-3">
+            <div class="form-group">
+            </div>
+          </div>
+        </div>
+        <div class="box-body">
+          <div class="table-responsive">
+
+            <div id="tableDynamic">
+ 
+            </div>
+          <br/>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script type="text/javascript">
+  function tableCreator(e, t) {
+    function i(e, t) {
+        var n = "";
+        var r = "";
+        var s = "";
+        $.each(t[0], function(e, t) {
+            s += "<th>" + e + "</th>"
+        });
+        $.each(t, function(e, t) {
+            r += "<tr>";
+            $.each(t, function(e, t) {
+                var n = 1 + Math.floor(Math.random() * 90 + 10);
+                var s = $.isPlainObject(t);
+                var o = [];
+                if (s) {
+                    o = $.makeArray(t)
+                }
+                if ($.isArray(t) && t.length > 0) {
+                    r += "<td><div><a href='#" + n + "' data-toggle='collapse' data-parent='#msgReport'><span class='glyphicon glyphicon-plus'></span></a><div id='" + n + "' class='panel-collapse collapse'>" + i(e, t) + "</div></div></td>"
+                } else {
+                    if (o.length > 0) {
+                        r += "<td><div><a href='#" + n + "' data-toggle='collapse' data-parent='#msgReport'><span class='glyphicon glyphicon-plus'></span></a><div id='" + n + "' class='panel-collapse collapse'>" + i(e, o) + "</div></div></td>"
+                    } else {
+                        r += "<td>" + t + "</td>"
+                    }
+                }
+            });
+            r += "</tr>"
+        });
+        n += "<table class='table table-bordered table-hover table-condensed'><thead>" + s + "</thead><tbody>" + r + "</tbody></table>";
+        return n
+    }
+    $(t).empty();
+    $(t).append("<table id='parentTable' class='table table-bordered table-striped tablesorter'><thead></thead><tbody></tbody></table>");
+    var n = "";
+    var r = "";
+    $.each(e, function(e, t) {
+        n += "<th>" + e + "</th>";
+        var s = 1 + Math.floor(Math.random() * 90 + 10);
+        var o = $.isPlainObject(t);
+        var u = [];
+        if (o) {
+            u = $.makeArray(t)
+        }
+        if ($.isArray(t) && t.length > 0) {
+            r += "<td><div id='accordion'><a href='#" + s + "' data-toggle='collapse' data-parent='#msgReport'><span class='glyphicon glyphicon-plus'></span></a><div id='" + s + "' class='panel-collapse collapse'>" + i(e, t) + "</div></div></td>"
+        } else {
+            if (u.length > 0) {
+                r += "<td><div id='accordion'><a href='#" + s + "' data-toggle='collapse' data-parent='#msgReport'><span class='glyphicon glyphicon-plus'></span></a><div id='" + s + "' class='panel-collapse collapse'>" + i(e, u) + "</div></div></td>"
+            } else {
+                r += "<td>" + t + "</td>"
+            }
+        }
+    });
+    $("#parentTable thead").append("<tr>" + n + "</tr>");
+    $("#parentTable tbody").append("<tr>" + r + "</tr>");
+
+
+    $(".glyphicon ").on("click", function() {
+        var e = $(this).attr("class");
+        switch (e) {
+            case "glyphicon glyphicon-plus":
+                $(this).removeClass("glyphicon-plus").addClass("glyphicon-minus");
+                break;
+            case "glyphicon glyphicon-minus":
+                $(this).removeClass("glyphicon-minus").addClass("glyphicon-plus");
+                break;
+            default:
+        }
+    })
+}
+var divSelector = '#tableDynamic';
+jsonStr = <%= @data.html_safe %>;
+tableCreator(  jsonStr,divSelector )
+</script>

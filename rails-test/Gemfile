@@ -35,6 +35,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'factory_girl_rails', :require => false
+  gem 'ffaker'
+  gem 'capybara'
+  gem 'rspec-rails'
+  gem 'simplecov'
 end
 
 group :development do
@@ -46,7 +51,6 @@ group :development do
 end
 
 gem 'markdown-rails'
-gem 'ffaker'
 gem 'pry'
 gem 'responders', '~> 2.0'
 gem 'bootstrap-sass'
